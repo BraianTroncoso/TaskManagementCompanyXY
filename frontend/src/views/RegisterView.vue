@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submit">
-    <h1 class="h3 mb-3 fw-normal">Please register</h1>
+    <h1 class="h3 mb-3 fw-normal text-center">Sign Up</h1>
 
     <input v-model="data.name" class="form-control" placeholder="Name" required>
 
@@ -17,7 +17,7 @@ import {reactive} from 'vue';
 import {useRouter} from "vue-router";
 
 export default {
-  name: "Register",
+  name: "RegisterView",
   setup() {
     const data = reactive({
       name: '',

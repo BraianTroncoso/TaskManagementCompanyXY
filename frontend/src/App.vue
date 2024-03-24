@@ -1,5 +1,5 @@
 <template>
-  <Nav/>
+  <NavigationBarComponent/>
 
   <main class="form-signin">
     <router-view/>
@@ -7,10 +7,10 @@
 </template>
 
 <script>
-import Nav from "@/components/Nav";
+import NavigationBarComponent from "@/components/NavigationBarComponent";
 
 export default {
-  components: {Nav}
+  components: {NavigationBarComponent}
 }
 </script>
 

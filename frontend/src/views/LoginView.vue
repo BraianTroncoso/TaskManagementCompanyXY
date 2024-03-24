@@ -15,7 +15,7 @@ import {reactive} from 'vue';
 import {useRouter} from "vue-router";
 
 export default {
-  name: "Login",
+  name: "LoginView",
   setup() {
     const data = reactive({
       email: '',
