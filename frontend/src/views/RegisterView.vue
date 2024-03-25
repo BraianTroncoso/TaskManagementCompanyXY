@@ -31,7 +31,7 @@
         <button
           type="submit"
           class="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-600 focus:outline-none my-1"
-        >Submit</button>
+        >Create Account</button>
       </div>
     </div>
   </form>
