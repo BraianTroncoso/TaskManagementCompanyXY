@@ -2,7 +2,7 @@
   <form @submit.prevent="submit" class=" flex flex-col w-full">
     <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
       <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-        <h1 class="mb-8 text-3xl text-center">Sign Up</h1>
+        <h1 class="mb-8 text-3xl text-center">Registrese</h1>
 
         <input 
           v-model="data.name"
