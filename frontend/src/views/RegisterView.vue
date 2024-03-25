@@ -1,14 +1,39 @@
 <template>
-  <form @submit.prevent="submit">
-    <h1 class="h3 mb-3 fw-normal text-center">Sign Up</h1>
+  <form @submit.prevent="submit" class=" flex flex-col w-full">
+    <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+      <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+        <h1 class="mb-8 text-3xl text-center">Sign Up</h1>
 
-    <input v-model="data.name" class="form-control" placeholder="Name" required>
+        <input 
+          v-model="data.name"
+          type="text"
+          class="block border border-gray-400 w-full p-3 rounded mb-4"
+          name="name"
+          placeholder="Name"
+          required />
 
-    <input v-model="data.email" type="email" class="form-control" placeholder="Email" required>
+        <input 
+          v-model="data.email"
+          type="email"
+          class="block border border-gray-400 w-full p-3 rounded mb-4"
+          name="email"
+          placeholder="Email"
+          required />
 
-    <input v-model="data.password" type="password" class="form-control" placeholder="Password" required>
+        <input
+          v-model="data.password"  
+          type="password"
+          class="block border border-gray-400 w-full p-3 rounded mb-4"
+          name="password"
+          placeholder="Password"
+          required />
 
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+        <button
+          type="submit"
+          class="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-600 focus:outline-none my-1"
+        >Submit</button>
+      </div>
+    </div>
   </form>
 </template>
 
