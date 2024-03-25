@@ -62,12 +62,14 @@
 <script lang="ts">
 import {computed} from 'vue';
 import {useStore} from "vuex";
+import { useRouter } from 'vue-router';
 
 export default {
   name: "NavigationBarComponent",
   setup() {
     const store = useStore();
-
+	const router = useRouter();
+	
     const auth = computed(() => store.state.authenticated)
 
     const logout = async () => {
@@ -76,12 +78,14 @@ export default {
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
       });
+		await store.dispatch('setAuth', false); 
+		await router.push('/login');
     }
-
     return {
       auth,
       logout
     }
   }
+  
 }
 </script>
