@@ -53,7 +53,7 @@
 	</ul>
 	<ul v-if="isAdmin" class="flex mr-2">
 		<li class="nav-item">
-		<router-link to="/tasks" class="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200">Tareas</router-link>
+		<router-link to="#" class="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200">Tareas</router-link>
 		</li>
 	</ul>
   <ul v-if="auth" class="flex mr-2">
