@@ -13,7 +13,11 @@ class TaskController extends Controller
         try {
         $tasks = Task::all();
         return response()->json($tasks);
-    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+    }
+    catch (\Exception $e) {
+        return response()->json(['error' => 'Error interno del servidor: ' . $e->getMessage()], 500);
+    }
+     catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
         return response()->json(['error' => 'Tareas no encontrada'], 404);
     } catch (\Exception $e) {
         return response()->json(['error' => 'Error interno del servidor'], 500);

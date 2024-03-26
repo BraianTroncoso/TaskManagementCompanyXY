@@ -54,24 +54,17 @@ export default {
         
         messageUser.value = `Hola ${user.name}`;
 
-        // Verificar si el usuario está autenticado
-        await store.dispatch('setAuth', true);
-
-        // Cargar las tareas una vez que el usuario esté autenticado
-      
-      
+        
       } catch (e) {
         // Manejar el error si ocurre alguna excepción
         await store.dispatch('setAuth', false);
       }
     });
 
-    const auth = computed(() => store.state.authenticated);
 
     return {
       messageAlert,
-      messageUser,
-      auth
+      messageUser
     }
   }
 }

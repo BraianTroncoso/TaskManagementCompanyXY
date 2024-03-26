@@ -10,33 +10,60 @@
     </ul>
   </div>
 </template>
-
 <script lang="ts">
-
 import { onMounted, computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'TaskComponent',
   setup() {
-
     const store = useStore();
     
-    const auth = computed(() => store.state.authenticated);
+    const fetchTasks = async () => {
+      try {
+        
+      const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
+      console.log('SOY EL TOKEN EN TASK COMPONENT: ', token);
+        
+      if (!token) {
+      throw new Error('Token not found');
+    }
+
+    const headers = {
+      'Authorization': `Bearer ${token}`, // Incluir el token en el encabezado de autorización
+      'Content-Type': 'application/json'
+    };
+        const response = await fetch('http://localhost:8000/api/tasks', { headers });
+
+        if (!response.ok) {
+          throw new Error('Error fetching tasks');
+        }
+
+        const tasksData = await response.json();
+        store.commit('SET_TASKS', tasksData);
+      } catch (error) {
+        console.error('Error fetching tasks:', error);
+        // Manejar errores de obtención de tareas
+      }
+    };
+
     onMounted(async () => {
       try { 
-        await store.dispatch('fetchTasks');
-      } catch (e) {
-        // Manejar el error si ocurre alguna excepción
-        console.log('No se recibieron las task');
+        await fetchTasks();
+      } catch (error) {
+        console.log('Error fetching tasks:', error);
+        // Manejar errores de obtención de tareas
       }
     });
+
     const tasks = computed(() => store.state.tasks);
-    
+    const auth = computed(() => store.state.authenticated);
+
     return {
       tasks,
       auth
     };
   },
 });
+
 </script>
