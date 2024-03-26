@@ -46,17 +46,17 @@
     </li>
   </ul>
 
-	<ul v-if="isAdmin" class="flex">
+	<ul v-if="isAdmin" class="flex mr-2">
 		<li class="nav-item">
 		<router-link to="/register" class="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200">Register</router-link>
 		</li>
 	</ul>
-	<ul v-if="isAdmin" class="flex">
+	<ul v-if="isAdmin" class="flex mr-2">
 		<li class="nav-item">
 		<router-link to="/tasks" class="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200">Tareas</router-link>
 		</li>
 	</ul>
-  <ul v-if="auth">
+  <ul v-if="auth" class="flex mr-2">
     <li class="nav-item">
       <a href="#" class="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200" @click="logout">Logout</a>
     </li>
