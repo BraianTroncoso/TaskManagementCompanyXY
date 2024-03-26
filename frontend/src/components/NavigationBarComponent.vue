@@ -45,9 +45,15 @@
       <router-link to="/login" class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-xl transition duration-200">Login</router-link>
     </li>
   </ul>
+
 	<ul v-if="isAdmin" class="flex">
 		<li class="nav-item">
 		<router-link to="/register" class="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200">Register</router-link>
+		</li>
+	</ul>
+	<ul v-if="isAdmin" class="flex">
+		<li class="nav-item">
+		<router-link to="/tasks" class="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200">Tareas</router-link>
 		</li>
 	</ul>
   <ul v-if="auth">
