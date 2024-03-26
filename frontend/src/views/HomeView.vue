@@ -26,6 +26,7 @@
 <script lang="ts">
 import {onMounted, ref} from 'vue';
 import {useStore} from "vuex";
+import User from '@/models/User';
 
 export default {
   name: "HomeView",
@@ -34,6 +35,7 @@ export default {
     const messageUser = ref('');
     const store = useStore();
 
+
     onMounted(async () => {
       try {
         const response = await fetch('http://localhost:8000/api/user', {
@@ -41,9 +43,14 @@ export default {
           credentials: 'include'
         });
 
-        const content = await response.json();
+        const userData = await response.json();
 
-        messageUser.value = `Hi ${content.name}`;
+        const user = new User(userData.id, userData.name, userData.email, userData.role); // Suponiendo que tienes un constructor en tu modelo User
+
+        // Almacena la instancia del usuario en Vuex
+        store.dispatch('setUser', user);
+        
+        messageUser.value = `Hi ${user.name}`;
 
         await store.dispatch('setAuth', true);
       } catch (e) {
