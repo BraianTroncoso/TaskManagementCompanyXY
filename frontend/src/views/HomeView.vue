@@ -20,47 +20,58 @@
     {{ messageUser }}
   </div>
 </div>
-
+  <div class="w-full">
+    <TaskComponent/>
+  </div>
 </template>
-
 <script lang="ts">
-import {onMounted, ref} from 'vue';
-import {useStore} from "vuex";
+import { onMounted, computed, ref } from 'vue';
+import { useStore } from "vuex";
 import User from '@/models/User';
+import TaskComponent from '@/components/TaskComponent.vue';
 
 export default {
   name: "HomeView",
+  components: { TaskComponent },
   setup() {
     const messageAlert = ref('No has iniciado sesión');
     const messageUser = ref('');
     const store = useStore();
 
-
     onMounted(async () => {
       try {
         const response = await fetch('http://localhost:8000/api/user', {
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'application/json' },
           credentials: 'include'
         });
-
+        
         const userData = await response.json();
 
-        const user = new User(userData.id, userData.name, userData.email, userData.role); // Suponiendo que tienes un constructor en tu modelo User
+        const user = new User(userData.id, userData.name, userData.email, userData.role);
 
         // Almacena la instancia del usuario en Vuex
         store.dispatch('setUser', user);
         
-        messageUser.value = `Hi ${user.name}`;
+        messageUser.value = `Hola ${user.name}`;
 
+        // Verificar si el usuario está autenticado
         await store.dispatch('setAuth', true);
+
+        // Cargar las tareas una vez que el usuario esté autenticado
+      
+      
       } catch (e) {
+        // Manejar el error si ocurre alguna excepción
         await store.dispatch('setAuth', false);
       }
     });
 
+    const auth = computed(() => store.state.authenticated);
+
     return {
       messageAlert,
-      messageUser
+      messageUser,
+      auth
     }
   }
 }
