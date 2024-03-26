@@ -33,6 +33,7 @@ export default createStore<State>({
             console.log('Auth status EN ACTIONS INDEX.TS:', auth);
             if (auth && token) {
                 localStorage.setItem('token', token); // Almacenar el token en el almacenamiento local
+                console.log('TOKEN ALMACENADO EN ACTIONS: ', token)
             } else {
                 localStorage.removeItem('token'); // Eliminar el token del almacenamiento local si el usuario cierra sesión
             }
