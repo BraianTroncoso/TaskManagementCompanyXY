@@ -1,4 +1,4 @@
-<template >
+<template>
   <div v-if="auth" class="container mx-auto">
     <h1 class="text-3xl font-bold mb-6">Tareas</h1>
     <ul>
@@ -6,6 +6,12 @@
         <div class="font-bold">{{ task.title }}</div>
         <div class="text-gray-600">{{ task.description }}</div>
         <div class="text-sm text-gray-500">{{ task.status }}</div>
+        <div class="mt-2">
+          <button @click="changeStatus(task.id, 'Pendiente')" class="bg-yellow-500 text-white px-4 py-1 rounded mr-2">Pendiente</button>
+          <button @click="changeStatus(task.id, 'En Progreso')" class="bg-blue-500 text-white px-4 py-1 rounded mr-2">En Progreso</button>
+          <button @click="changeStatus(task.id, 'Completada')" class="bg-green-500 text-white px-4 py-1 rounded mr-2">Completada</button>
+          <button @click="changeStatus(task.id, 'Bloqueado')" class="bg-red-500 text-white px-4 py-1 rounded mr-2">Bloqueada</button>
+        </div>
       </li>
     </ul>
   </div>
@@ -56,14 +62,26 @@ export default defineComponent({
       }
     });
 
+    
+
     const tasks = computed(() => store.state.tasks);
     const auth = computed(() => store.state.authenticated);
+    //  // Método para cambiar el estado de una tarea
+    // const changeStatus = (taskId: number, newStatus: string) => {
+    //   // Aquí deberías implementar la lógica para cambiar el estado de la tarea en tu base de datos
+    //   console.log(`Cambiando estado de la tarea ${taskId} a ${newStatus}`);
+    //   // Por ejemplo, podrías llamar a una acción de Vuex para actualizar el estado de la tarea en el store
+    //   store.dispatch('changeTaskStatus', { taskId, newStatus });
+    // };
 
+    
     return {
       tasks,
-      auth
+      auth,
+      // changeStatus
     };
   },
+  
 });
 
 </script>
