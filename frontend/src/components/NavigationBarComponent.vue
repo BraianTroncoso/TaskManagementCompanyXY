@@ -79,6 +79,7 @@ export default {
 	const router = useRouter();
 	
     const auth = computed(() => store.state.authenticated)
+	console.log('Auth status en NavigationBarComponent:', auth.value);
 	const isAdmin = computed(() => {
 	const user = store.state.user;
 	return user && user.role === 'admin';

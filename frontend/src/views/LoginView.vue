@@ -59,8 +59,18 @@ export default {
         if (!response.ok) {
           throw new Error('Failed to login');
         }
-        
-        store.dispatch('setAuth', true);
+
+        const responseJson = await response.json();
+        console.log('Response from server:', responseJson);
+        const token = responseJson.message;
+        console.log('Token en login:', token);
+
+        // Almacenar el token de autenticación en Vuex
+
+        store.dispatch('setAuth', { auth: true, token }); // Corregido aquí
+        console.log('Token en login:', token);
+
+
 
         await router.push('/');
 
