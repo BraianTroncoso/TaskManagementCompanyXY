@@ -2,7 +2,7 @@
   <form @submit.prevent="submit" class=" flex flex-col w-full">
     <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
       <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-        <h1 class="mb-8 text-3xl text-center">Sign Up</h1>
+        <h1 class="mb-8 text-3xl text-center">Register</h1>
 
         <input 
           v-model="data.name"
@@ -31,7 +31,7 @@
         <button
           type="submit"
           class="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-600 focus:outline-none my-1"
-        >Submit</button>
+        >Create Account</button>
       </div>
     </div>
   </form>
@@ -58,7 +58,7 @@ export default {
         body: JSON.stringify(data)
       });
 
-      await router.push('/login');
+      await router.push('/');
     }
 
     return {

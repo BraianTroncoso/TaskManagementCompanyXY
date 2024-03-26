@@ -30,33 +30,50 @@
 </template>
 
 <script lang="ts">
+
 import {reactive} from 'vue';
-import {useRouter} from "vue-router";
+import {useRouter} from 'vue-router';
+import { useStore } from 'vuex';
+
 
 export default {
-  name: "LoginView",
+  name: 'LoginView',
   setup() {
     const data = reactive({
       email: '',
       password: ''
     });
+
     const router = useRouter();
+    const store = useStore(); 
 
     const submit = async () => {
-      await fetch('http://localhost:8000/api/login', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        credentials: 'include',
-        body: JSON.stringify(data)
-      });
+      try {
+        const response = await fetch('http://localhost:8000/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(data)
+        });
 
-      await router.push('/');
-    }
+        if (!response.ok) {
+          throw new Error('Failed to login');
+        }
+        
+        store.dispatch('setAuth', true);
+
+        await router.push('/');
+
+      } catch (error) {
+        console.error('Error during login:', error);
+        // Manejar errores de inicio de sesión
+      }
+    };
 
     return {
       data,
       submit
-    }
+    };
   }
-}
+};
 </script>
