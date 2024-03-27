@@ -3,7 +3,7 @@
     <h2 class="text-3xl font-bold ml-3 text-gray-600">Tareas</h2>
     <ul v-if="isAdmin" class="flex mr-2 justify-end">
 		<li class="nav-item mb-4">
-		<router-link to="#" class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 font-bold transition duration-200">Agregar Tarea</router-link>
+		<router-link to="/task" class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 font-bold transition duration-200">Agregar Tarea</router-link>
 		</li>
 	</ul>
     <div class="overflow-x-auto">
@@ -24,10 +24,10 @@
               <div class="text-sm text-gray-500">{{ task.description }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <span v-if="task.status === 'Pendiente'" class="bg-yellow-500 text-white px-4 py-1 rounded mr-2">Pendiente</span>
-              <span v-if="task.status === 'En Progreso'" class="bg-blue-500 text-white px-4 py-1 rounded mr-2">En Progreso</span>
-              <span v-if="task.status === 'Completada'" class="bg-green-500 text-white px-4 py-1 rounded mr-2">Completada</span>
-              <span v-if="task.status === 'Bloqueado'" class="bg-red-500 text-white px-4 py-1 rounded mr-2">Bloqueada</span>
+              <span v-if="task.status === 'Pendiente'" class="text-yellow-500">Pendiente</span>
+              <span v-if="task.status === 'En proceso'" class="text-blue-500">En Proceso</span>
+              <span v-if="task.status === 'Completado'" class="text-green-500">Completada</span>
+              <span v-if="task.status === 'Bloqueado'" class="text-red-600">Bloqueada</span>
             </td>
           </tr>
         </tbody>
@@ -47,9 +47,7 @@ export default defineComponent({
     
     const fetchTasks = async () => {
       try {
-        
       const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
-      console.log('SOY EL TOKEN EN TASK COMPONENT: ', token);
         
       if (!token) {
       throw new Error('Token not found');

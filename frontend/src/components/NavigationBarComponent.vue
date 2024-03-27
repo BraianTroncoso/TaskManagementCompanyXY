@@ -1,6 +1,6 @@
 <template>
   <nav class="relative px-4 py-4 flex justify-between items-center bg-gray-800 mb-4">
-    <router-link to="/" class="text-2xl font-bold leading-none text-white">Company XY</router-link>
+    <h1 class="text-2xl font-bold leading-none text-white">Company XY</h1>
 
    
     <div class="flex">
@@ -9,13 +9,16 @@
           <router-link to="/login" class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 hover:text-blue-600 text-sm text-white font-bold rounded-xl transition duration-200">Login</router-link>
         </li>
       </ul>
-
       <ul v-if="isAdmin" class="flex">
+        <li class="nav-item">
+          <router-link to="/" class="hidden lg:inline-block py-2 px-6 hover:text-blue-600 text-sm text-white font-bold rounded-xl transition duration-200">Home</router-link>
+        </li>
+      </ul>
+	<ul v-if="isAdmin" class="flex">
         <li class="nav-item">
           <router-link to="/register" class="hidden lg:inline-block py-2 px-6 hover:text-blue-600 text-sm text-white font-bold rounded-xl transition duration-200">Register</router-link>
         </li>
       </ul>
-
       <ul v-if="auth" class="flex">
         <li class="nav-item">
           <a href="#" class="hidden lg:inline-block py-2 px-6 hover:text-blue-600 text-sm text-white font-bold rounded-xl transition duration-200" @click="logout">Logout</a>

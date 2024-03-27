@@ -25,7 +25,7 @@
   </div>
 </template>
 <script lang="ts">
-import { onMounted, computed, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useStore } from "vuex";
 import User from '@/models/User';
 import TaskComponent from '@/components/TaskComponent.vue';
