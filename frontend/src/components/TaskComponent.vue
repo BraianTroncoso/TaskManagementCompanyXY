@@ -1,6 +1,11 @@
 <template>
   <div v-if="auth" class="container mx-auto">
-    <h1 class="text-3xl font-bold mb-6 text-gray">Tareas</h1>
+    <h2 class="text-3xl font-bold ml-3 text-gray-600">Tareas</h2>
+    <ul v-if="isAdmin" class="flex mr-2 justify-end">
+		<li class="nav-item mb-4">
+		<router-link to="#" class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 font-bold transition duration-200">Agregar Tarea</router-link>
+		</li>
+	</ul>
     <div class="overflow-x-auto">
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
@@ -82,10 +87,15 @@ export default defineComponent({
     const tasks = computed(() => store.state.tasks);
     const auth = computed(() => store.state.authenticated);
  
-    
+    const isAdmin = computed(() => {
+    const user = store.state.user;
+    return user && user.role === 'admin';
+    });
+
     return {
       tasks,
       auth,
+      isAdmin
     };
   },
   
