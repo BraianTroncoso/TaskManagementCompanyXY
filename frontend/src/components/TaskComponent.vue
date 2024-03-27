@@ -1,20 +1,36 @@
 <template>
   <div v-if="auth" class="container mx-auto">
-    <h1 class="text-3xl font-bold mb-6">Tareas</h1>
-    <ul>
-      <li v-for="task in tasks" :key="task.id" class="bg-gray-100 rounded-lg p-4 mb-2">
-        <div class="font-bold">{{ task.title }}</div>
-        <div class="text-gray-600">{{ task.description }}</div>
-        <div class="mt-2">
-          <button v-if="task.status === 'Pendiente'" class="bg-yellow-500 text-white px-4 py-1 rounded mr-2">Pendiente</button>
-          <button v-if="task.status === 'En Progreso'" class="bg-blue-500 text-white px-4 py-1 rounded mr-2">En Progreso</button>
-          <button v-if="task.status === 'Completada'" class="bg-green-500 text-white px-4 py-1 rounded mr-2">Completada</button>
-          <button v-if="task.status === 'Bloqueado'"  class="bg-red-500 text-white px-4 py-1 rounded mr-2">Bloqueada</button>
-        </div>
-      </li>
-    </ul>
+    <h1 class="text-3xl font-bold mb-6 text-gray">Tareas</h1>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Título</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr v-for="task in tasks" :key="task.id">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm font-medium text-gray-900">{{ task.title }}</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-500">{{ task.description }}</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span v-if="task.status === 'Pendiente'" class="bg-yellow-500 text-white px-4 py-1 rounded mr-2">Pendiente</span>
+              <span v-if="task.status === 'En Progreso'" class="bg-blue-500 text-white px-4 py-1 rounded mr-2">En Progreso</span>
+              <span v-if="task.status === 'Completada'" class="bg-green-500 text-white px-4 py-1 rounded mr-2">Completada</span>
+              <span v-if="task.status === 'Bloqueado'" class="bg-red-500 text-white px-4 py-1 rounded mr-2">Bloqueada</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
+
 <script lang="ts">
 import { onMounted, computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
