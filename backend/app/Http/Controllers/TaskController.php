@@ -6,7 +6,7 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
-{
+{   
     public function index()
     {
         // Obtener todas las tareas
@@ -24,26 +24,25 @@ class TaskController extends Controller
     }
     }
 
+    
     public function store(Request $request)
-    {
-        // Validar los datos de entrada
-        $request->validate([
+{
+    try {
+        $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'nullable',
-            'status' => 'required|in:Pendiente,En proceso,Bloqueado,Completado',
+            'status' => 'nullable|in:Pendiente,En proceso,Bloqueado,Completado',
             'assigned_user_id' => 'nullable|exists:users,id'
         ]);
 
-        // Crear la nueva tarea
-        $task = Task::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'status' => $request->status,
-            'assigned_user_id' => $request->assigned_user_id
-        ]);
+        $task = Task::create($validatedData);
 
         return response()->json($task, 201);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Error creating task: ' . $e->getMessage()], 500);
     }
+}
+
 
     public function show($id)
     {
@@ -57,7 +56,7 @@ class TaskController extends Controller
         }
     }
     
-
+    
     public function update(Request $request, $id)
     {
         // Obtener la tarea por ID
