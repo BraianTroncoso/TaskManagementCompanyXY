@@ -16,7 +16,7 @@
   </div>
 </div>
   <div class="w-full">
-    <TaskComponent/>
+    <TaskByUserComponent/>
   </div>
 </template>
 
@@ -25,11 +25,11 @@
 
 import { ref, onMounted } from 'vue';
 import AuthController from '@/controllers/AuthController';
-import TaskComponent from '@/components/TaskComponent.vue';
+import TaskByUserComponent from '@/components/TaskByUserComponent.vue';
 
 export default {
   name: 'HomeView',
-  components: { TaskComponent },
+  components: { TaskByUserComponent },
   setup() {
     const messageAlert = ref('');
     const messageUser = ref('');
