@@ -1,8 +1,5 @@
 <template>
-
-
 <div v-if="messageUser" class="flex items-center p-4 mb-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-800 max-w-md mx-auto" role="alert">
-  
   <span class="sr-only">Info</span>
   <div class="mx-auto">
     <span class="font-medium text-gray-700 dark:text-gray-400">{{ messageUser }}</span> 
@@ -25,6 +22,7 @@
 
 
 <script lang="ts">
+
 import { ref, onMounted } from 'vue';
 import AuthController from '@/controllers/AuthController';
 

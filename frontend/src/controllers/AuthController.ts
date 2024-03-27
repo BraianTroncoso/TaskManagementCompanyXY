@@ -10,6 +10,11 @@ export interface LoginData {
   password: string;
 }
 
+export interface RegisterData {
+  name: string;
+  email: string;
+  password: string;
+}
 
 export default class AuthController {
 
@@ -85,5 +90,24 @@ export default class AuthController {
       messageUser,
     };
   }
+  public dataRegister: RegisterData = reactive({
+    name: '',
+    email: '',
+    password: ''
+  });
 
+
+  async register() {
+    try {
+      await fetch('http://localhost:8000/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.data)
+      });
+
+      await this.router.push('/');
+    } catch (error) {
+      console.error('Error during registration:', error);
+    }
+  }
 }
