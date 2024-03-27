@@ -22,46 +22,31 @@
     <TaskComponent/>
   </div>
 </template>
+
+
 <script lang="ts">
-import { onMounted, ref } from 'vue';
-import { useStore } from "vuex";
-import User from '@/models/User';
-import TaskComponent from '@/components/TaskComponent.vue';
+import { ref, onMounted } from 'vue';
+import AuthController from '@/controllers/AuthController';
 
 export default {
-  name: "HomeView",
-  components: { TaskComponent },
+  name: 'HomeView',
   setup() {
-    const messageAlert = ref('No has iniciado sesión');
+    const messageAlert = ref('');
     const messageUser = ref('');
-    const store = useStore();
 
-    onMounted(async () => {
-      try {
-        const response = await fetch('http://localhost:8000/api/user', {
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include'
-        });
-        
-        const userData = await response.json();
+    const fetchUserData = async () => {
+      const authController = new AuthController();
+      const { messageAlert: alertValue, messageUser: userValue } = await authController.getUserData();
+      messageAlert.value = alertValue.value; 
+      messageUser.value = userValue.value; 
+    };
 
-        const user = new User(userData.id, userData.name, userData.email, userData.role);
-
-        // Almacena la instancia del usuario en Vuex
-        store.dispatch('setUser', user);
-        
-          messageUser.value = `Bienvenido ${user.name}`;
-      } catch (e) {
-        // Manejar el error si ocurre alguna excepción
-        await store.dispatch('setAuth', false);
-      }
-    });
-
+    onMounted(fetchUserData);
 
     return {
       messageAlert,
-      messageUser
-    }
-  }
-}
+      messageUser,
+    };
+  },
+};
 </script>

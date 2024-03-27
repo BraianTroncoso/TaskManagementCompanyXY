@@ -3,6 +3,7 @@
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import User from '@/models/User';
 
 export interface LoginData {
   email: string;
@@ -40,7 +41,6 @@ export default class AuthController {
       await this.router.push('/');
     } catch (error) {
       console.error('Error during login:', error);
-      // Manejar errores de inicio de sesión
     }
   }
 
@@ -57,8 +57,33 @@ export default class AuthController {
       await this.router.push('/login');
     } catch (error) {
       console.error('Error during logout:', error);
-      // Manejar errores de cierre de sesión
     }
   }
-  
+
+  async getUserData() {
+    const messageAlert = reactive({ value: 'No has iniciado sesión' });
+    const messageUser = reactive({ value: '' });
+
+    try {
+      const response = await fetch('http://localhost:8000/api/user', {
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+      });
+
+      const userData = await response.json();
+      const user = new User(userData.id, userData.name, userData.email, userData.role);
+
+      // Almacena la instancia del usuario en Vuex
+      this.store.dispatch('setUser', user);
+      messageUser.value = `Bienvenido ${user.name}`;
+    } catch (e) {
+      await this.store.dispatch('setAuth', false);
+    }
+
+    return {
+      messageAlert,
+      messageUser,
+    };
+  }
+
 }

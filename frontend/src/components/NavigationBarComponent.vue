@@ -1,8 +1,6 @@
 <template>
   <nav class="relative px-4 py-4 flex justify-between items-center bg-gray-800 mb-4">
     <h1 class="text-2xl font-bold leading-none text-white">Company XY</h1>
-
-   
     <div class="flex">
       <ul v-if="!auth && !isAdmin" class="flex">
         <li class="nav-item">

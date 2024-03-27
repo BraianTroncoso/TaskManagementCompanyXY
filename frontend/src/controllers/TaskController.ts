@@ -25,7 +25,6 @@ export default class TaskController {
       store.commit('SET_TASKS', tasksData.map((task: any) => new Task(task.id, task.title, task.description, task.status, task.assigned_user_id)));
     } catch (error) {
       console.error('Error fetching tasks:', error);
-      // Manejar errores de obtención de tareas
     }
   }
 
