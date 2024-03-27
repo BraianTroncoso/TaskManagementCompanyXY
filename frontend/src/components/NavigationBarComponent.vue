@@ -14,7 +14,7 @@
             <router-link to="/register" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Registrar usuario</router-link>
           </li>
           <li v-if="auth">
-            <router-link to="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ver todas las tareas</router-link>
+            <router-link to="/task/all" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ver todas las tareas</router-link>
           </li>
         </ul>
     </div>
@@ -58,10 +58,10 @@ export default {
       await authController.logout();
     };
 
-    const isOpen = ref(false); // Definir isOpen como una variable reactiva
+    const isOpen = ref(false);
 
     const toggleMenu = () => {
-      isOpen.value = !isOpen.value; // Cambiar el valor de isOpen
+      isOpen.value = !isOpen.value;
     };
 
     const closeMenu = () => {
@@ -72,9 +72,9 @@ export default {
       auth,
       logout,
       isAdmin,
-      isOpen, // Devolver isOpen desde setup
-      toggleMenu, // Devolver toggleMenu desde setup
-      closeMenu, // Devolver closeMenu desde setup
+      isOpen, 
+      toggleMenu,
+      closeMenu,
     };
   },
 };

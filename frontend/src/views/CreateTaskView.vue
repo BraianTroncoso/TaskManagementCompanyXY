@@ -44,7 +44,7 @@ import { reactive } from 'vue';
 import {useRouter} from "vue-router";
 
 export default {
-  name: 'TaskView',
+  name: 'CreateTaskView',
   setup() {
     const data = reactive({
       title: '',
