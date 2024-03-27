@@ -69,10 +69,11 @@ export default defineComponent({
     const user = store.state.user;
     return user && user.role === 'admin';
     });
+    const taskController = new TaskController();
 
     onMounted(async () => {
       try { 
-        await TaskController.fetchTasks();
+        await taskController.fetchTasks();
       } catch (error) {
         console.log('Error fetching tasks:', error);
       }
@@ -80,8 +81,8 @@ export default defineComponent({
 
     const deleteTask = async (taskId: number) => {
       try {
-        await TaskController.deleteTask(taskId);
-        await TaskController.fetchTasks(); 
+        await taskController.deleteTask(taskId);
+        await taskController.fetchTasks(); 
       } catch (error) {
         console.error('Error deleting task:', error);
       }

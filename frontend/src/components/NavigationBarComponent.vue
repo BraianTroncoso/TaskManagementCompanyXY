@@ -38,11 +38,10 @@ import { useRouter } from 'vue-router';
 export default {
   name: "NavigationBarComponent",
   setup() {
-    const store = useStore();
+  const store = useStore();
 	const router = useRouter();
 	
-    const auth = computed(() => store.state.authenticated)
-	console.log('Auth status en NavigationBarComponent:', auth.value);
+  const auth = computed(() => store.state.authenticated)
 	const isAdmin = computed(() => {
 	const user = store.state.user;
 	return user && user.role === 'admin';

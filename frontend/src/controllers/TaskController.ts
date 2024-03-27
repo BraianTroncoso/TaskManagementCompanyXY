@@ -3,8 +3,7 @@ import { useStore } from 'vuex';
 
 const store = useStore();
 
-export default {
-
+export default class TaskController {
 
   async fetchTasks() {
     try {
@@ -28,7 +27,7 @@ export default {
       console.error('Error fetching tasks:', error);
       // Manejar errores de obtención de tareas
     }
-  },
+  }
 
   async deleteTask(taskId: number) {
     try {  const token = localStorage.getItem('token');
@@ -46,10 +45,8 @@ export default {
         if (!response.ok) {
           throw new Error('Error deleting task');
         }
-        // Actualizar la lista de tareas después de eliminar
-        //await fetchTasks();
       } catch (error) {
         console.error('Error deleting task:', error);
-        // Manejar errores de eliminación de tareas
       }
-    }}
+    }
+}

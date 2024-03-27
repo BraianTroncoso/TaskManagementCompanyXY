@@ -31,58 +31,20 @@
 
 <script lang="ts">
 
-import {reactive} from 'vue';
-import {useRouter} from 'vue-router';
-import { useStore } from 'vuex';
-
+import AuthController, { LoginData } from '../controllers/AuthController';
 
 export default {
   name: 'LoginView',
   setup() {
-    const data = reactive({
-      email: '',
-      password: ''
-    });
-
-    const router = useRouter();
-    const store = useStore(); 
+    const authController = new AuthController();
 
     const submit = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify(data)
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to login');
-        }
-
-        const responseJson = await response.json();
-        console.log('Response from server:', responseJson);
-        const token = responseJson.message;
-        console.log('Token en login:', token);
-
-        // Almacenar el token de autenticación en Vuex
-
-        store.dispatch('setAuth', { auth: true, token }); // Corregido aquí
-        console.log('Token en login:', token);
-
-
-
-        await router.push('/');
-
-      } catch (error) {
-        console.error('Error during login:', error);
-        // Manejar errores de inicio de sesión
-      }
+      await authController.submit();
     };
-
+    const data: LoginData = authController.data;
     return {
-      data,
-      submit
+      submit,
+      data
     };
   }
 };
