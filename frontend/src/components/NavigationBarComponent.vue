@@ -32,32 +32,25 @@
 <script lang="ts">
 import {computed} from 'vue';
 import {useStore} from "vuex";
-import { useRouter } from 'vue-router';
-
+import AuthController from '../controllers/AuthController';
 
 export default {
   name: "NavigationBarComponent",
   setup() {
   const store = useStore();
-	const router = useRouter();
-	
   const auth = computed(() => store.state.authenticated)
 	const isAdmin = computed(() => {
 	const user = store.state.user;
 	return user && user.role === 'admin';
+
 	});
 
+  const authController = new AuthController();
 
-    const logout = async () => {
-      await fetch('http://localhost:8000/api/logout', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        credentials: 'include',
-      });
-		await store.dispatch('setAuth', false); 
-		await store.dispatch('setUser', null); 
-		await router.push('/login');
-    }
+  const logout = async () => {
+      await authController.logout();
+    };
+
     return {
     auth,
     logout,

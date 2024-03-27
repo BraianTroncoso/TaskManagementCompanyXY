@@ -43,4 +43,22 @@ export default class AuthController {
       // Manejar errores de inicio de sesión
     }
   }
+
+  async logout() {
+    try {
+      await fetch('http://localhost:8000/api/logout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+      });
+
+      await this.store.dispatch('setAuth', false);
+      await this.store.dispatch('setUser', null);
+      await this.router.push('/login');
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Manejar errores de cierre de sesión
+    }
+  }
+  
 }
