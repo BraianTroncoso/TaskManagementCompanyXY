@@ -4,7 +4,7 @@
 
    
     <div class="flex">
-      <ul v-if="!auth" class="flex">
+      <ul v-if="!auth && !isAdmin" class="flex">
         <li class="nav-item">
           <router-link to="/login" class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 hover:text-blue-600 text-sm text-white font-bold rounded-xl transition duration-200">Login</router-link>
         </li>
@@ -16,10 +16,10 @@
       </ul>
 	<ul v-if="isAdmin" class="flex">
         <li class="nav-item">
-          <router-link to="/register" class="hidden lg:inline-block py-2 px-6 hover:text-blue-600 text-sm text-white font-bold rounded-xl transition duration-200">Register</router-link>
+          <router-link to="/register" class="hidden lg:inline-block py-2 px-6 hover:text-blue-600 text-sm text-white font-bold rounded-xl transition duration-200">Register a User</router-link>
         </li>
       </ul>
-      <ul v-if="auth" class="flex">
+      <ul v-if="auth || isAdmin" class="flex">
         <li class="nav-item">
           <a href="#" class="hidden lg:inline-block py-2 px-6 hover:text-blue-600 text-sm text-white font-bold rounded-xl transition duration-200" @click="logout">Logout</a>
         </li>
