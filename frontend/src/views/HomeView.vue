@@ -25,9 +25,11 @@
 
 import { ref, onMounted } from 'vue';
 import AuthController from '@/controllers/AuthController';
+import TaskComponent from '@/components/TaskComponent.vue';
 
 export default {
   name: 'HomeView',
+  components: { TaskComponent },
   setup() {
     const messageAlert = ref('');
     const messageUser = ref('');
