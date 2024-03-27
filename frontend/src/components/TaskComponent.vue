@@ -29,6 +29,23 @@
               <span v-if="task.status === 'Completado'" class="text-green-500">Completada</span>
               <span v-if="task.status === 'Bloqueado'" class="text-red-600">Bloqueada</span>
             </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+  <!-- Ícono de editar -->
+  <router-link :to="`/edit/${task.id}`" class="text-gray-500 hover:text-gray-700 mr-3">
+    <svg class="w-5 h-5 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 3l6 6-9 9-6-6 9-9z"></path>
+      <path d="M10 17h-4v-4"></path>
+      <path d="M14 7l-4 4"></path>
+    </svg>
+  </router-link>
+  <!-- Ícono de eliminar -->
+  <button @click="deleteTask(task.id)" class="text-gray-500 hover:text-gray-700">
+    <svg class="w-5 h-5 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 6l3 15h12l3-15H3zm2.5 0L9 4h6l3.5 2M9 4V2m6 2V2"></path>
+    </svg>
+  </button>
+</td>
+
           </tr>
         </tbody>
       </table>
