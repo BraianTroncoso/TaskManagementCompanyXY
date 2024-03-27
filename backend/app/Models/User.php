@@ -21,4 +21,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];
+
+    public function task()
+    {
+        return $this->hasOne(Task::class, 'assigned_user_id');
+    }
 }
