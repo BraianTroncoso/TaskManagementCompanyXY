@@ -62,6 +62,31 @@ export default defineComponent({
   setup() {
     const store = useStore();
     
+    const deleteTask = async (taskId: number) => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          throw new Error('Token not found');
+        }
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        };
+        const response = await fetch(`http://localhost:8000/api/tasks/${taskId}`, {
+          method: 'DELETE',
+          headers: headers
+        });
+        if (!response.ok) {
+          throw new Error('Error deleting task');
+        }
+        // Actualizar la lista de tareas después de eliminar
+        await fetchTasks();
+      } catch (error) {
+        console.error('Error deleting task:', error);
+        // Manejar errores de eliminación de tareas
+      }
+    };
+
     const fetchTasks = async () => {
       try {
       const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
@@ -88,6 +113,7 @@ export default defineComponent({
       }
     };
 
+    
     onMounted(async () => {
       try { 
         await fetchTasks();
@@ -110,7 +136,8 @@ export default defineComponent({
     return {
       tasks,
       auth,
-      isAdmin
+      isAdmin,
+      deleteTask
     };
   },
   

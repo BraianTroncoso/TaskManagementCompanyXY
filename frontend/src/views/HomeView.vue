@@ -32,7 +32,7 @@ export default {
   name: "HomeView",
   components: { TaskComponent },
   setup() {
-    const messageAlert = ref('');
+    const messageAlert = ref('No has iniciado sesión');
     const messageUser = ref('');
     const store = useStore();
 
@@ -50,11 +50,7 @@ export default {
         // Almacena la instancia del usuario en Vuex
         store.dispatch('setUser', user);
         
-        if(user.name){
           messageUser.value = `Bienvenido ${user.name}`;
-        }else{
-          messageAlert.value = ('No has iniciado sesión');
-        }
       } catch (e) {
         // Manejar el error si ocurre alguna excepción
         await store.dispatch('setAuth', false);
