@@ -56,83 +56,36 @@
 <script lang="ts">
 import { onMounted, computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
+import TaskController from '../controllers/TaskController';
+
 
 export default defineComponent({
   name: 'TaskComponent',
   setup() {
     const store = useStore();
-    
-    const deleteTask = async (taskId: number) => {
-      try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          throw new Error('Token not found');
-        }
-        const headers = {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        };
-        const response = await fetch(`http://localhost:8000/api/tasks/${taskId}`, {
-          method: 'DELETE',
-          headers: headers
-        });
-        if (!response.ok) {
-          throw new Error('Error deleting task');
-        }
-        // Actualizar la lista de tareas después de eliminar
-        await fetchTasks();
-      } catch (error) {
-        console.error('Error deleting task:', error);
-        // Manejar errores de eliminación de tareas
-      }
-    };
-
-    const fetchTasks = async () => {
-      try {
-      const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
-        
-      if (!token) {
-      throw new Error('Token not found');
-    }
-
-    const headers = {
-      'Authorization': `Bearer ${token}`, // Incluir el token en el encabezado de autorización
-      'Content-Type': 'application/json'
-    };
-        const response = await fetch('http://localhost:8000/api/tasks', { headers });
-
-        if (!response.ok) {
-          throw new Error('Error fetching tasks');
-        }
-
-        const tasksData = await response.json();
-        store.commit('SET_TASKS', tasksData);
-      } catch (error) {
-        console.error('Error fetching tasks:', error);
-        // Manejar errores de obtención de tareas
-      }
-    };
-
-    
-    onMounted(async () => {
-      try { 
-        await fetchTasks();
-      } catch (error) {
-        console.log('Error fetching tasks:', error);
-        // Manejar errores de obtención de tareas
-      }
-    });
-
-    
-
     const tasks = computed(() => store.state.tasks);
     const auth = computed(() => store.state.authenticated);
- 
     const isAdmin = computed(() => {
     const user = store.state.user;
     return user && user.role === 'admin';
     });
 
+    onMounted(async () => {
+      try { 
+        await TaskController.fetchTasks();
+      } catch (error) {
+        console.log('Error fetching tasks:', error);
+      }
+    });
+
+    const deleteTask = async (taskId: number) => {
+      try {
+        await TaskController.deleteTask(taskId);
+        await TaskController.fetchTasks(); 
+      } catch (error) {
+        console.error('Error deleting task:', error);
+      }
+    };
     return {
       tasks,
       auth,
