@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 /*
@@ -16,6 +17,7 @@ use App\Http\Controllers\TaskController;
 
 Route::post('register', [\App\Http\Controllers\AuthController::class, 'register']);
 Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
+Route::get('/generate-pdf', [ReportController::class, 'generatePDF'])->name('generate-pdf');
 
 
 Route::middleware('auth:sanctum')->group(function () {
