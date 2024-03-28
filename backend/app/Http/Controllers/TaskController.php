@@ -89,4 +89,19 @@ class TaskController extends Controller
 
         return response()->json(['message' => 'Tarea eliminada correctamente']);
     }
+
+    
+    public function getTaskByUser($taskId)
+    {
+        $task = Task::find($taskId);
+        if ($task) {
+            $userAssignedToTask = $task->user;
+            return response()->json($userAssignedToTask);
+        } else {
+            return response()->json(['error' => 'Tarea no encontrada'], 404);
+        }
+    }
+
+    
+    
 }

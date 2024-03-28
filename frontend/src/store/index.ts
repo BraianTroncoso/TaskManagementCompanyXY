@@ -17,12 +17,11 @@ export default createStore<State>({
     mutations: {
         SET_AUTH(state: State, auth: boolean) {
             state.authenticated = auth;
-            console.log('MUTACION EN INDEX.TS ES: ',auth)
         },
-        SET_USER(state: State, user: User | null) { // Definimos la mutación para establecer el usuario
+        SET_USER(state: State, user: User | null) { // mutación para establecer el usuario
             state.user = user;
         },
-        SET_TASKS(state: State, tasks: Task[]) { // Definir la mutación para establecer las tareas
+        SET_TASKS(state: State, tasks: Task[]) { // mutación para establecer las tareas
             state.tasks = tasks;
         },
     },
@@ -30,10 +29,8 @@ export default createStore<State>({
         
         setAuth({ commit }: { commit: Commit }, { auth, token }: { auth: boolean, token: string | null }) {
             commit('SET_AUTH', auth);
-            console.log('Auth status EN ACTIONS INDEX.TS:', auth);
             if (auth && token) {
                 localStorage.setItem('token', token); // Almacenar el token en el almacenamiento local
-                console.log('TOKEN ALMACENADO EN ACTIONS: ', token)
             } else {
                 localStorage.removeItem('token'); // Eliminar el token del almacenamiento local si el usuario cierra sesión
             }

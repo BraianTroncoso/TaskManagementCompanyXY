@@ -1,6 +1,7 @@
 <template>
   <div v-if="auth" class="container mx-auto">
-    <h2 class="text-3xl font-bold ml-3 text-gray-600">Tareas</h2>
+    <h2 v-if="hasTasks" class="text-3xl font-bold ml-3 text-gray-600">Tareas asignadas</h2>
+    <h2 v-if="!hasTasks" class="text-3xl font-bold ml-3 text-red-600">No existen tareas asignadas</h2>
     <ul v-if="isAdmin" class="flex mr-2 justify-end">
       <li class="nav-item mb-4">
         <router-link to="/task" class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 font-bold transition duration-200">Agregar Tarea</router-link>
@@ -17,7 +18,7 @@
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-          <tr v-for="task in tasks" :key="task.id">
+          <tr v-for="task in filteredTasks" :key="task.id">
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="text-sm font-medium text-gray-900">{{ task.title }}</div>
             </td>
@@ -32,7 +33,7 @@
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               <!-- Ícono de editar -->
-              <router-link :to="`/task/${task.id}`" class="text-gray-500 hover:text-gray-700 mr-3">
+              <router-link :to="`/edit/${task.id}`" class="text-gray-500 hover:text-gray-700 mr-3">
                 <svg class="w-5 h-5 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M15 3l6 6-9 9-6-6 9-9z"></path>
                   <path d="M10 17h-4v-4"></path>
@@ -53,49 +54,63 @@
   </div>
 </template>
 
-
-<script lang="ts">
-import { onMounted, computed, defineComponent } from 'vue';
-import { useStore } from 'vuex';
-import TaskController from '../controllers/TaskController';
-
-
-export default defineComponent({
-  name: 'TaskComponent',
-  setup() {
-    const store = useStore();
-    const tasks = computed(() => store.state.tasks);
-    const auth = computed(() => store.state.authenticated);
-    const isAdmin = computed(() => {
-    const user = store.state.user;
-    return user && user.role === 'admin';
-    });
-    const taskController = new TaskController();
-
-    onMounted(async () => {
-      try { 
-        await taskController.fetchTasks();
-      } catch (error) {
-        console.log('Error fetching tasks:', error);
-      }
-    });
-
-    const deleteTask = async (taskId: number) => {
-      try {
-        await taskController.deleteTask(taskId);
-        await taskController.fetchTasks(); 
-      } catch (error) {
-        console.error('Error deleting task:', error);
-      }
-    };
-    return {
-      tasks,
-      auth,
-      isAdmin,
-      deleteTask
-    };
-  },
   
-});
+  <script lang="ts">
+  import { onMounted, computed, defineComponent } from 'vue';
+  import { useStore } from 'vuex';
+  import TaskController from '../controllers/TaskController';
+  import Task from '@/models/Task';
+  
+  export default defineComponent({
+    name: 'TaskByUserComponent',
+    setup() {
+      const store = useStore();
+      const tasks = computed(() => store.state.tasks);
+      const auth = computed(() => store.state.authenticated);
 
-</script>
+      const isAdmin = computed(() => {
+        const user = store.state.user;
+        return user && user.role === 'admin';
+      });
+      const taskController = new TaskController();
+      onMounted(async () => {
+        try { 
+          await taskController.fetchTasks();
+        } catch (error) {
+          console.log('Error fetching tasks:', error);
+        }
+      });
+  
+      const deleteTask = async (taskId: number) => {
+        try {
+          await taskController.deleteTask(taskId);
+          await taskController.fetchTasks(); 
+        } catch (error) {
+          console.error('Error deleting task:', error);
+        }
+      };
+      // Filtrar tareas para mostrar solo la tarea asignada al usuario autenticado
+      const filteredTasks = computed(() => {
+      const user = store.state.user;
+      if (user) {
+        return tasks.value.filter((task: Task) => task.assigned_user_id === user.id);
+      }
+      return [];
+    });
+
+    // Calcular si hay tareas asignadas
+    const hasTasks = computed(() => filteredTasks.value.length > 0);
+
+        
+      return {
+        tasks,
+        auth,
+        isAdmin,
+        deleteTask,
+        filteredTasks,
+        hasTasks
+      };
+    },
+  });
+  </script>
+  

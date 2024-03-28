@@ -19,6 +19,17 @@
           placeholder="Descripción"
           required ></textarea>
 
+          <select 
+          v-model="data.status"
+          class="block border border-gray-400 w-full p-3 rounded mb-4"
+          name="status"
+          required >
+          <option value="" disabled selected>Seleccione el estado</option>
+          <option value="Pendiente">Pendiente</option>
+          <option value="En proceso">En Proceso</option>
+          <option value="Bloqueado">Bloqueado</option>
+          <option value="Completado">Completado</option>
+        </select>  
         <button
           type="submit"
           class="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-600 focus:outline-none my-1"
@@ -33,11 +44,12 @@ import { reactive } from 'vue';
 import {useRouter} from "vue-router";
 
 export default {
-  name: 'TaskView',
+  name: 'CreateTaskView',
   setup() {
     const data = reactive({
       title: '',
-      description: ''
+      description: '',
+      status: ''
     });
     const router = useRouter();
 
