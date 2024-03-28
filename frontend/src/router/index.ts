@@ -4,6 +4,7 @@ import Login from '@/views/LoginView.vue'
 import Register from '@/views/RegisterView.vue'
 import CreateTaskView from '@/views/CreateTaskView.vue'
 import TasksView from '@/views/TasksView.vue'
+import UpdateTaskView from '@/views/UpdateTaskView.vue'
 
 const routes: Array<RouteRecordRaw> = [
     {path: '/', component: Home},
@@ -11,6 +12,8 @@ const routes: Array<RouteRecordRaw> = [
     {path: '/register', component: Register},
     {path: '/task', component: CreateTaskView},
     {path: '/task/all', component: TasksView},
+    {path: '/task/:id', component: UpdateTaskView}
+
 
 ]
 

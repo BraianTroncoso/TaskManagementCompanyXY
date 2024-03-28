@@ -2,10 +2,10 @@
   <div v-if="auth" class="container mx-auto">
     <h2 class="text-3xl font-bold ml-3 text-gray-600">Tareas</h2>
     <ul v-if="isAdmin" class="flex mr-2 justify-end">
-		<li class="nav-item mb-4">
-		<router-link to="/task" class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 font-bold transition duration-200">Agregar Tarea</router-link>
-		</li>
-	</ul>
+      <li class="nav-item mb-4">
+        <router-link to="/task" class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 font-bold transition duration-200">Agregar Tarea</router-link>
+      </li>
+    </ul>
     <div class="overflow-x-auto">
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
@@ -21,7 +21,7 @@
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="text-sm font-medium text-gray-900">{{ task.title }}</div>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-6 py-4 whitespace-normal overflow-visible">
               <div class="text-sm text-gray-500">{{ task.description }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
@@ -31,28 +31,28 @@
               <span v-if="task.status === 'Bloqueado'" class="text-red-600">Bloqueada</span>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-  <!-- Ícono de editar -->
-  <router-link :to="`/edit/${task.id}`" class="text-gray-500 hover:text-gray-700 mr-3">
-    <svg class="w-5 h-5 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M15 3l6 6-9 9-6-6 9-9z"></path>
-      <path d="M10 17h-4v-4"></path>
-      <path d="M14 7l-4 4"></path>
-    </svg>
-  </router-link>
-  <!-- Ícono de eliminar -->
-  <button v-if="isAdmin" @click="deleteTask(task.id)" class="text-gray-500 hover:text-gray-700">
-    <svg class="w-5 h-5 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 6l3 15h12l3-15H3zm2.5 0L9 4h6l3.5 2M9 4V2m6 2V2"></path>
-    </svg>
-  </button>
-</td>
-
+              <!-- Ícono de editar -->
+              <router-link :to="`/task/${task.id}`" class="text-gray-500 hover:text-gray-700 mr-3">
+                <svg class="w-5 h-5 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 3l6 6-9 9-6-6 9-9z"></path>
+                  <path d="M10 17h-4v-4"></path>
+                  <path d="M14 7l-4 4"></path>
+                </svg>
+              </router-link>
+              <!-- Ícono de eliminar -->
+              <button v-if="isAdmin" @click="deleteTask(task.id)" class="text-gray-500 hover:text-gray-700">
+                <svg class="w-5 h-5 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 6l3 15h12l3-15H3zm2.5 0L9 4h6l3.5 2M9 4V2m6 2V2"></path>
+                </svg>
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 </template>
+
 
 <script lang="ts">
 import { onMounted, computed, defineComponent } from 'vue';
