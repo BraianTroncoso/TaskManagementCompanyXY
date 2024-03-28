@@ -40,11 +40,12 @@ DB_PORT=3306
 DB_DATABASE=ingresa_tu_database
 DB_USERNAME=ingresa_tu_usuario
 DB_PASSWORD=ingresa_tu_contraseña
+```
 
-
+## Configuración de frontend y backend
 
 Para levantar el servidor en el backend y en el frontend, sigue estos pasos:
-
+```plaintext
 1. Instala las dependencias de PHP ejecutando `composer install`.
 2. Instala las dependencias de JavaScript ejecutando `npm install`.
 3. Configura tu archivo `.env`.
@@ -52,3 +53,4 @@ Para levantar el servidor en el backend y en el frontend, sigue estos pasos:
 5. Inicia el servidor PHP con `php artisan serve`.
 6. Compila los assets de Vue.js con `npm run dev`.
 7. ¡Listo para comenzar!
+```
