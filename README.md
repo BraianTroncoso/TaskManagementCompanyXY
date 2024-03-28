@@ -2,6 +2,9 @@
 
 Desarrollo de una aplicación destinada a la gestión de tareas para los empleados de la empresa "XY". Esta herramienta facilitará la organización y seguimiento de las actividades asignadas a través de la definición de títulos y descripciones para cada tarea. Cada tarea estará asociada a un empleado en particular y podrá transitar por distintos estados, como Pendiente, En proceso, Bloqueado o Completado. Además, se permitirá la interacción mediante comentarios y la posibilidad de adjuntar archivos en diversos formatos, como PDF, JPG, JPEG o PNG.
 
+![all_tasks](https://github.com/BraianTroncoso/TaskManagementCompanyXY/assets/95662710/dc858e05-2289-49a1-82fa-ecbe4b90c204)
+
+
 ## Tecnologías
 
 PHP - Laravel - VueJS - MySQL - Tailwind - TypeScript - Javascript
