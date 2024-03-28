@@ -97,12 +97,12 @@ export default class AuthController {
 
   async register() {
     try {
-      await fetch('http://localhost:8000/api/register', {
+      const response = await fetch('http://localhost:8000/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(this.data)
+        body: JSON.stringify(this.dataRegister)
       });
-
+  
       await this.router.push('/');
     } catch (error) {
       console.error('Error during registration:', error);
