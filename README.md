@@ -29,6 +29,19 @@ Para ejecutar las migraciones y aplicar los cambios en la base de datos, puedes 
 ```bash
 php artisan migrate
 ```
+## Configuración de la Base de Datos
+
+Para conectar la aplicación a la base de datos, completa los siguientes datos en el archivo `.env` que se encuentra en la carpeta del backend:
+
+```plaintext
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ingresa_tu_database
+DB_USERNAME=ingresa_tu_usuario
+DB_PASSWORD=ingresa_tu_contraseña
+
+
 
 Para levantar el servidor en el backend y en el frontend, sigue estos pasos:
 
